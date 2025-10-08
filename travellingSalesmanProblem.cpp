@@ -1,114 +1,119 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct graph {
-    int n;
-    vector<vector<pair<int,int>>> adj;
-    map<pair<int,int>, int> edgeName;
+// Struktur untuk merepresentasikan satu edge
+struct Edge {
+    int id;      // ID edge (misal: 0, 1, 2, 3)
+    int to;      // node tujuan dari node asal
+    int cost;    // bobot (biaya) edge
+};
 
-    void init(int v) {
-        n = v;
-        adj.assign(v+1, {});
+struct Graph {
+    int totalNodes;
+    vector<vector<Edge>> adjacency;  // adjacency list: adjacency[u] menyimpan daftar edge dari node u
+
+    void init(int nodeCount) {
+        totalNodes = nodeCount;
+        adjacency.assign(nodeCount + 1, {});
     }
 
-    void add_edge(int name, int u, int v, int w) {
-    adj[u].push_back({v, w});
-    adj[v].push_back({u, w});
-    edgeName[{u, v}] = name;
-    edgeName[{v, u}] = name; // tambahkan ini!
-}
+    void addEdge(int edgeId, int fromNode, int toNode, int weight) {
+        adjacency[fromNode].push_back({edgeId, toNode, weight});
+        adjacency[toNode].push_back({edgeId, fromNode, weight});
+    }
 
+    // Variabel untuk menyimpan hasil terbaik
+    int bestTotalCost;
+    vector<int> bestEdgeRoute;
 
-    void tsp(int start) {
-        int bestCost = INT_MAX;
-        vector<int> bestPath;
-
-        queue<pair<vector<int>, int>> q;
-        q.push(make_pair(vector<int>{start}, 0));
-
-        while (!q.empty()) {
-            pair<vector<int>, int> frontPair = q.front();
-            vector<int> path = frontPair.first;
-            int cost = frontPair.second;
-            q.pop();
-
-            if ((int)path.size() == n) {
-                int last = path.back();
-                for (size_t i = 0; i < adj[last].size(); i++) {
-                    int v = adj[last][i].first;
-                    int w = adj[last][i].second;
-                    if (v == start) {
-                        int total = cost + w;
-                        if (total < bestCost) {
-                        bestCost = total;
-                        bestPath = path;
-                        bestPath.push_back(start);
-                    }
-                    }
-                }
-                continue;
-            }
-
-            int current = path.back();
-            vector<pair<int,int>> neighbors = adj[current];
-            sort(neighbors.begin(), neighbors.end(), [](const pair<int,int> &a, const pair<int,int> &b){
-                return a.second < b.second;
-            });
-
-            int limit = min((int)neighbors.size(), 2);
-            for (int i = 0; i < limit; i++) {
-                int next = neighbors[i].first;
-                int weight = neighbors[i].second;
-
-                if (find(path.begin(), path.end(), next) == path.end() && next != start) {
-                    vector<int> newPath = path;
-                    newPath.push_back(next);
-                    q.push(make_pair(newPath, cost + weight));
-                }
+    // DFS rekursif untuk mencari semua kombinasi jalur
+    void dfs(
+        int currentNode,
+        int startNode,
+        vector<bool>& visitedNode,
+        int currentCost,
+        vector<int>& currentEdgeRoute
+    ) {
+        // Cek apakah semua node sudah dikunjungi
+        bool allVisited = true;
+        for (int i = 1; i <= totalNodes; i++) {
+            if (!visitedNode[i]) {
+                allVisited = false;
+                break;
             }
         }
-        cout << "Cost: " << bestCost << endl;
 
-        // Pastikan path terbaik dimulai dari 'start'
-        if (!bestPath.empty()) {
-    // temukan posisi start dalam path
-            auto it = find(bestPath.begin(), bestPath.end(), start);
-            if (it != bestPath.end())
-                rotate(bestPath.begin(), it, bestPath.end());
+        // Jika semua sudah dikunjungi, coba kembali ke startNode
+        if (allVisited) {
+            for (const auto& edge : adjacency[currentNode]) {
+                if (edge.to == startNode) {
+                    int totalCost = currentCost + edge.cost;
+                    if (totalCost < bestTotalCost) {
+                        bestTotalCost = totalCost;
+                        bestEdgeRoute = currentEdgeRoute;
+                        bestEdgeRoute.push_back(edge.id);  // tambahkan edge terakhir (kembali ke awal)
+                    }
+                }
+            }
+            return;
         }
 
+        // Jelajahi semua tetangga yang belum dikunjungi
+        for (const auto& edge : adjacency[currentNode]) {
+            int nextNode = edge.to;
+            int edgeId = edge.id;
+            int edgeCost = edge.cost;
+
+            if (!visitedNode[nextNode]) {
+                visitedNode[nextNode] = true;
+                currentEdgeRoute.push_back(edgeId);
+
+                dfs(nextNode, startNode, visitedNode, currentCost + edgeCost, currentEdgeRoute);
+
+                currentEdgeRoute.pop_back();      // backtrack: hapus edge terakhir
+                visitedNode[nextNode] = false;    // tandai belum dikunjungi
+            }
+        }
+    }
+
+    // Fungsi utama untuk menyelesaikan TSP
+    void solveTSP(int startNode) {
+        bestTotalCost = INT_MAX;
+        bestEdgeRoute.clear();
+
+        vector<bool> visitedNode(totalNodes + 1, false);
+        visitedNode[startNode] = true;
+
+        vector<int> currentEdgeRoute;
+        dfs(startNode, startNode, visitedNode, 0, currentEdgeRoute);
+
+        cout << "Output for TSP" << endl;
+        cout << "Cost: " << bestTotalCost << endl;
         cout << "Route: ";
-        for (int i = 0; i < (int)bestPath.size() - 1; i++) {
-            int u = bestPath[i];
-            int v = bestPath[i + 1];
-
-            // kalau arah (u,v) tidak ditemukan, coba arah sebaliknya
-            if (edgeName.find(make_pair(u, v)) != edgeName.end())
-                cout << edgeName[make_pair(u, v)];
-            else
-                cout << edgeName[make_pair(v, u)];
-
-            if (i < (int)bestPath.size() - 2) cout << ", ";
+        for (size_t i = 0; i < bestEdgeRoute.size(); i++) {
+            cout << bestEdgeRoute[i];
+            if (i < bestEdgeRoute.size() - 1) cout << ", ";
         }
         cout << endl;
     }
 };
 
 int main() {
-    int n, e;
-    cin >> n >> e;
+    int nodeCount, edgeCount;
+    cin >> nodeCount >> edgeCount;
 
-    graph g;
-    g.init(n);
+    Graph g;
+    g.init(nodeCount);
 
-    for (int i = 0; i < e; i++) {
-        int name, u, v, w;
-        cin >> name >> u >> v >> w;
-        g.add_edge(name, u, v, w);
+    for (int i = 0; i < edgeCount; i++) {
+        int edgeId, from, to, cost;
+        cin >> edgeId >> from >> to >> cost;
+        g.addEdge(edgeId, from, to, cost);
     }
 
-    int start;
-    cin >> start;
-
-    g.tsp(start);
+    int startNode;
+    cin >> startNode;
+    // main() → Graph.solveTSP() → Graph.dfs()
+    g.solveTSP(startNode);
+    return 0;
 }
