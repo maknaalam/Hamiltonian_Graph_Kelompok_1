@@ -54,8 +54,6 @@ void floyd_warshall() {
 }
 
 int main() {
-    printf("Masukkan input untuk Chinese Postman Problem:\n");
-
     scanf("%d %d", &n, &e);
 
     for (int i = 0; i < n; i++) {
@@ -145,8 +143,6 @@ int main() {
             circuit[circuit_len++] = stack[top--];
         }
     }
-
-    printf("\n--- HASIL ---\n");
     printf("Cost: %lld\n", cpp_cost);
     printf("Route: ");
     for (int i = circuit_len - 1; i >= 0; i--) {
