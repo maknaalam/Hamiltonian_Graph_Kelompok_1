@@ -1,4 +1,4 @@
-<img width="551" height="70" alt="image" src="https://github.com/user-attachments/assets/23e05c42-620f-4445-9a58-c66b4bcaf9a2" /># Hamiltonian_Graph_Kelompok_1
+# Hamiltonian_Graph_Kelompok_1
 
 Group Number: 1 
 
