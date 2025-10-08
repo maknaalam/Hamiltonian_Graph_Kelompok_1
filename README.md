@@ -61,7 +61,7 @@ Output #2: <br />
 Cost: 30 <br />
 Route: 1, 4, 3, 2, 5, 1, 2, 1 <br />
 
-### The Knight's Tour
+## The Knight's Tour
 
 | | | | | |
 | --- | --- | --- | --- | --- |
