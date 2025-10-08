@@ -34,7 +34,7 @@ Output #1:<br />
 
 Cost: 17 <br />
 Route: 0, 1, 3  <br />
-Output #2 <br />
+Input #2 <br />
 ```
 4
 4
@@ -47,6 +47,14 @@ Output #2 <br />
 Output #2:<br />
 
 No solution found. <br />
+Input #3 <br />
+3
+2
+1 2 1 5
+2 3 2 7
+1
+Output #3:<br />
+No solution found.
 
 ### Chinese Postman Problem (CPP)
 
