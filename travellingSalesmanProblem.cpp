@@ -87,14 +87,17 @@ struct Graph {
         vector<int> currentEdgeRoute;
         dfs(startNode, startNode, visitedNode, 0, currentEdgeRoute);
 
-        cout << "Output for TSP" << endl;
-        cout << "Cost: " << bestTotalCost << endl;
-        cout << "Route: ";
-        for (size_t i = 0; i < bestEdgeRoute.size(); i++) {
-            cout << bestEdgeRoute[i];
-            if (i < bestEdgeRoute.size() - 1) cout << ", ";
+        if (bestTotalCost == INT_MAX) {
+            cout << "No solution found." << endl;
+        } else {
+            cout << "Cost: " << bestTotalCost << endl;
+            cout << "Route: ";
+            for (size_t i = 0; i < bestEdgeRoute.size(); i++) {
+                cout << bestEdgeRoute[i];
+                if (i < bestEdgeRoute.size() - 1) cout << ", ";
+            }
+            cout << endl;
         }
-        cout << endl;
     }
 };
 
@@ -113,6 +116,15 @@ int main() {
 
     int startNode;
     cin >> startNode;
+    /*
+    3          ← jumlah node
+    4          ← jumlah edge
+    0 1 2 10   ← edgeId, from, to, cost
+    1 2 3 5
+    2 3 1 7
+    3 3 1 2
+    1          ← start node
+    */
     // main() → Graph.solveTSP() → Graph.dfs()
     g.solveTSP(startNode);
     return 0;
