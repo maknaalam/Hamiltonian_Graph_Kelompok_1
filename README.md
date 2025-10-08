@@ -44,7 +44,7 @@ Output #2 <br />
 3 1 0 2
 1
 ```
-Output #1:<br />
+Output #2:<br />
 
 No solution found. <br />
 
