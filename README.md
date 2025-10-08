@@ -1,4 +1,4 @@
-# Hamiltonian_Graph_Kelompok_1
+<img width="551" height="70" alt="image" src="https://github.com/user-attachments/assets/23e05c42-620f-4445-9a58-c66b4bcaf9a2" /># Hamiltonian_Graph_Kelompok_1
 
 Group Number: 1 
 
@@ -18,9 +18,23 @@ last line denotes the starting point (and finishing point) of the TSP/CPP soluti
 
 ### Travelling Salesman Problem (TSP)
 
+Code:
+[Code TSP](ravellingSalesmanProblem.cpp)
+Input #1 <br />
 ```
+3 
+4 
+0 1 2 10 
+1 2 3 5
+2 3 1 7 
+3 3 1 2 
+1
+```
+Output #1:<br />
 
-```
+Cost: 17 <br />
+Route: 0, 1, 3  <br />
+
 
 ### Chinese Postman Problem (CPP)
 
