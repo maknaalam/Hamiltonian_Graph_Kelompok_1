@@ -26,7 +26,7 @@ last line denotes the starting point (and finishing point) of the TSP/CPP soluti
 
 Code:
 
-![Code CPP](chinesePostmanProblem.c)
+[Code CPP](chinesePostmanProblem.c)
 
 To use the program, start by entering the number of nodes and the number of edges on the first line, separated by a space, and then press Enter. Next, on the following lines, input the details for each edge by typing four numbers—representing the edge's name, the two nodes it connects, and its cost—each separated by a space. After all the edges have been entered, type the single number for the starting node on the final line and press Enter again. The program will then automatically run and display the result. <br />
 
@@ -80,7 +80,7 @@ It will be the coordinates the knight will go until it visit all squares in the 
 <br /> <br />
 Code:
 
-![Code The Knight's Tour](theKnightsTour.c)
+[Code The Knight's Tour](theKnightsTour.c)
 
 How to use: <br />
 enter 2(two) numbers separated by space(spacebar) on the first line, that initiates size of chessboard; <br />
