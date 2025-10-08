@@ -48,11 +48,13 @@ Output #2:<br />
 
 No solution found. <br />
 Input #3 <br />
+```
 3
 2
 1 2 1 5
 2 3 2 7
 1
+```
 Output #3:<br />
 No solution found.
 
