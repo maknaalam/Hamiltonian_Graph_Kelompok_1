@@ -18,8 +18,8 @@ last line denotes the starting point (and finishing point) of the TSP/CPP soluti
 
 ### Travelling Salesman Problem (TSP)
 
-Code:
-[Code TSP](ravellingSalesmanProblem.cpp)
+Code: <br />
+[Code TSP](ravellingSalesmanProblem.cpp) <br />
 Input #1 <br />
 ```
 3 
