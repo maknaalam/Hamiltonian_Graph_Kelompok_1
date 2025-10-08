@@ -9,7 +9,7 @@ Group Members:
 
 ## Problem for TSP & CPP
 
-![1](hamiltonian.png)<br />
+![1](image/hamiltonian.png)<br />
 
 Note on input <br />
 first two lines defines the number of nodes n and number of edges e respectively <br />
