@@ -19,7 +19,7 @@ last line denotes the starting point (and finishing point) of the TSP/CPP soluti
 ### Travelling Salesman Problem (TSP)
 
 Code: <br />
-[Code TSP](ravellingSalesmanProblem.cpp) <br />
+[Code TSP](travellingSalesmanProblem.cpp) <br />
 Input #1 <br />
 ```
 3 
