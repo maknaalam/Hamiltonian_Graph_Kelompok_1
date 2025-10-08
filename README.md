@@ -74,7 +74,7 @@ Route: 1, 4, 3, 2, 5, 1, 2, 1 <br />
 Note on input <br />
 first line defines the size of the chessboard <br />
 second line defines the starting position of the knight (coordinate) <br />
-<br /> <br />
+<br />
 Note on output <br />
 It will be the coordinates the knight will go until it visit all squares in the chessboard <br />
 <br /> <br />
